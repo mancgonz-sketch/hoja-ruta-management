@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hoja de ruta — Management contemporáneo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --asfalto:#131A18;
+  --papel:#E7E9E2;
+  --tiza:#F7F8F4;
+  --azul:#14508C;
+  --azul-osc:#0E3963;
+  --ambar:#A96C11;
+  --linea:#C3C8BF;
+  --gris:#5C6660;
+  --disp:"Saira Condensed",Arial Narrow,sans-serif;
+  --body:"Newsreader",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --rail:74px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;background:var(--papel);color:var(--asfalto);
+  font-family:var(--body);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--azul);text-decoration:none;border-bottom:1px solid rgba(20,80,140,.32)}
+a:hover{border-bottom-color:var(--azul)}
+a:focus-visible{outline:2px solid var(--ambar);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+
+/* ── barra de avance ─────────────────────────── */
+.bar{position:sticky;top:0;z-index:40;background:rgba(231,233,226,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--linea)}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:46px}
+.bar b{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);white-space:nowrap}
+.track{flex:1;height:3px;background:var(--linea);position:relative}
+.fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--azul);transition:width .35s ease}
+.bar .pct{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--azul);min-width:44px;text-align:right}
+
+/* ── cabecera ────────────────────────────────── */
+header{padding:72px 0 40px;border-bottom:2px solid var(--asfalto)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ambar);font-weight:600}
+h1{font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;
+   font-size:clamp(42px,9vw,92px);line-height:.92;margin:14px 0 0}
+h1 span{display:block;color:var(--azul)}
+.lede{max-width:60ch;margin:26px 0 0;font-size:20px;line-height:1.55;color:#25302C}
+.datos{display:flex;flex-wrap:wrap;gap:0;margin-top:34px;border-top:1px solid var(--linea)}
+.dato{flex:1 1 150px;padding:14px 18px 14px 0;border-right:1px solid var(--linea)}
+.dato:last-child{border-right:0}
+.dato dt{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+.dato dd{margin:4px 0 0;font-family:var(--disp);font-size:26px;font-weight:700;line-height:1}
+
+/* ── índice ──────────────────────────────────── */
+.indice{padding:32px 0 8px}
+.indice ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px}
+.indice a{display:flex;gap:12px;padding:11px 12px;background:var(--tiza);border:0;border-left:3px solid var(--linea);
+  font-family:var(--disp);font-size:17px;font-weight:600;color:var(--asfalto);letter-spacing:.01em}
+.indice a:hover{border-left-color:var(--azul);background:#fff}
+.indice em{font-family:var(--mono);font-style:normal;font-size:11px;font-weight:600;color:var(--gris);padding-top:3px}
+
+/* ── traza / tramos ──────────────────────────── */
+main{position:relative;padding:56px 0 0}
+.tramo{position:relative;padding-left:var(--rail);padding-bottom:64px}
+.tramo::before{content:"";position:absolute;left:23px;top:6px;bottom:0;width:2px;background:var(--linea)}
+.tramo:last-of-type::before{background:linear-gradient(var(--linea),transparent)}
+.mojon{position:absolute;left:0;top:0;width:48px;height:52px;background:var(--tiza);
+  border:2px solid var(--asfalto);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.mojon i{font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--gris)}
+.mojon b{font-family:var(--disp);font-size:22px;font-weight:800;line-height:1}
+
+.cartel{background:var(--azul);color:#fff;padding:16px 20px;position:relative}
+.cartel::after{content:"";position:absolute;inset:5px;border:1px solid rgba(255,255,255,.42);pointer-events:none}
+.cartel .n{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#B9D4F0}
+.cartel h2{font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:clamp(24px,4.4vw,38px);
+  line-height:1.02;margin:5px 0 0;letter-spacing:.005em}
+.cartel .km{font-family:var(--mono);font-size:11px;color:#B9D4F0;margin-top:7px;letter-spacing:.06em}
+
+.porque{margin:20px 0 26px;max-width:66ch;font-size:17.5px}
+.porque strong{font-weight:600}
+
+/* ── paradas ─────────────────────────────────── */
+.paradas{list-style:none;margin:0;padding:0;border-top:1px solid var(--linea)}
+.parada{display:flex;gap:14px;padding:16px 4px 16px 0;border-bottom:1px solid var(--linea);align-items:flex-start}
+.parada:hover{background:rgba(255,255,255,.5)}
+.chk{appearance:none;flex:0 0 auto;width:17px;height:17px;margin-top:5px;border:1.5px solid var(--gris);
+  background:transparent;cursor:pointer;position:relative}
+.chk:checked{background:var(--azul);border-color:var(--azul)}
+.chk:checked::after{content:"";position:absolute;left:5px;top:1px;width:4px;height:9px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.chk:focus-visible{outline:2px solid var(--ambar);outline-offset:2px}
+.cuerpo{flex:1;min-width:0}
+.tipo{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;padding:2px 7px;border:1px solid var(--gris);color:var(--gris);margin-right:9px;
+  vertical-align:2px}
+.tipo.p{border-color:var(--azul);color:var(--azul)}
+.tipo.c{border-color:var(--ambar);color:var(--ambar)}
+.titulo{font-family:var(--disp);font-size:20px;font-weight:600;line-height:1.15}
+.titulo a{border-bottom-width:1px}
+.fuente{font-family:var(--mono);font-size:11px;color:var(--gris);margin-top:5px;letter-spacing:.03em}
+.nota{margin:7px 0 0;font-size:16px;line-height:1.5;color:#2B3531;max-width:70ch}
+.sinlink{color:var(--asfalto)}
+
+/* ── bajada a territorio ─────────────────────── */
+.campo{margin-top:26px;background:var(--tiza);border-left:4px solid var(--ambar);padding:18px 22px}
+.campo h3{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ambar);margin:0 0 10px}
+.campo ol{margin:0;padding-left:20px}
+.campo li{margin-bottom:8px;font-size:16.5px}
+.campo li:last-child{margin-bottom:0}
+
+/* ── taller ──────────────────────────────────── */
+.taller{border-top:2px solid var(--asfalto);margin-top:20px;padding-top:44px;padding-bottom:60px}
+.taller h2{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(30px,6vw,52px);
+  line-height:.98;margin:0 0 8px}
+.taller .sub{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px;margin-top:30px}
+.card{background:var(--tiza);padding:20px 22px;border-top:3px solid var(--azul)}
+.card h4{font-family:var(--disp);font-size:21px;font-weight:700;margin:0 0 8px;text-transform:uppercase;letter-spacing:.01em}
+.card p{margin:0 0 10px;font-size:16px;line-height:1.5}
+.card ul{margin:0;padding-left:17px;font-size:16px}
+.card li{margin-bottom:5px}
+.card.alerta{border-top-color:var(--ambar)}
+
+.receta{background:var(--asfalto);color:#E7E9E2;padding:26px 26px 28px;margin-top:34px}
+.receta h4{font-family:var(--disp);font-size:24px;font-weight:700;text-transform:uppercase;margin:0 0 12px;color:#fff}
+.receta p{margin:0 0 12px;font-size:16.5px;color:#C6CEC9;max-width:72ch}
+.receta code{font-family:var(--mono);font-size:14px;background:rgba(255,255,255,.09);padding:2px 7px;color:#F2C879}
+.receta a{color:#8FBFEF;border-bottom-color:rgba(143,191,239,.4)}
+
+footer{border-top:1px solid var(--linea);padding:26px 0 60px;font-family:var(--mono);font-size:11.5px;
+  color:var(--gris);line-height:1.8;letter-spacing:.02em}
+
+/* ── insignia de traducción por fuente ───────── */
+.es{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.1em;
+  padding:1px 5px;margin-left:8px;border:1px solid var(--ambar);color:var(--ambar);
+  vertical-align:2px;border-bottom:1px solid var(--ambar)}
+.es:hover{background:var(--ambar);color:#fff;border-bottom-color:var(--ambar)}
+
+/* ── traductor ───────────────────────────────── */
+#abrirTrad{position:fixed;right:20px;bottom:20px;z-index:60;background:var(--ambar);color:#fff;
+  border:0;padding:13px 20px;cursor:pointer;font-family:var(--disp);font-size:17px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.04em;box-shadow:0 3px 14px rgba(19,26,24,.28)}
+#abrirTrad:hover{background:#8E5A0D}
+#abrirTrad:focus-visible{outline:2px solid var(--asfalto);outline-offset:3px}
+
+.velo{position:fixed;inset:0;z-index:70;background:rgba(19,26,24,.62);display:none;
+  align-items:flex-end;justify-content:center;padding:0}
+.velo.on{display:flex}
+.panel{background:var(--papel);width:100%;max-width:860px;max-height:92vh;overflow:auto;
+  border-top:4px solid var(--ambar);padding:22px 26px 28px}
+.panel .cab{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:4px}
+.panel h3{font-family:var(--disp);font-size:30px;font-weight:800;text-transform:uppercase;margin:0;line-height:1}
+.panel .ayuda{font-family:var(--mono);font-size:11px;color:var(--gris);letter-spacing:.02em;margin:6px 0 16px}
+#cerrarTrad{background:none;border:1px solid var(--gris);color:var(--gris);font-family:var(--mono);
+  font-size:11px;padding:5px 10px;cursor:pointer;letter-spacing:.1em;flex:0 0 auto}
+#cerrarTrad:hover{border-color:var(--asfalto);color:var(--asfalto)}
+.panel textarea{width:100%;min-height:150px;resize:vertical;background:var(--tiza);border:1px solid var(--linea);
+  padding:13px 15px;font-family:var(--body);font-size:16px;line-height:1.5;color:var(--asfalto)}
+.panel textarea:focus{outline:2px solid var(--azul);outline-offset:-1px}
+.acciones{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.btn{background:var(--azul);color:#fff;border:0;padding:11px 18px;cursor:pointer;font-family:var(--disp);
+  font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+.btn:hover{background:var(--azul-osc)}
+.btn[disabled]{background:var(--gris);cursor:progress}
+.btn.sec{background:transparent;color:var(--asfalto);border:1px solid var(--gris)}
+.btn.sec:hover{background:var(--tiza);border-color:var(--asfalto)}
+.estado{font-family:var(--mono);font-size:11.5px;color:var(--gris);letter-spacing:.02em}
+.estado.err{color:var(--ambar)}
+#salida{margin-top:16px;background:var(--tiza);border-left:3px solid var(--azul);padding:16px 18px;
+  white-space:pre-wrap;font-size:16.5px;line-height:1.58;display:none}
+#salida.on{display:block}
+
+@media (max-width:640px){
+  :root{--rail:56px}
+  #abrirTrad{right:12px;bottom:12px;padding:11px 16px;font-size:15px}
+  .panel{padding:18px 18px 24px}
+  .panel h3{font-size:24px}
+  body{font-size:16.5px}
+  .mojon{width:40px;height:46px}
+  .mojon b{font-size:18px}
+  .tramo::before{left:19px}
+  .datos{display:block}
+  .dato{border-right:0;border-bottom:1px solid var(--linea)}
+  .parada{gap:11px}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap">
+    <b>Avance de ruta</b>
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <span class="pct" id="pct">0%</span>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Dossier de estudio autogestionado · GDM · Agosto 2026</p>
+    <h1>Hoja de ruta<span>Management contemporáneo</span></h1>
+    <p class="lede">Ocho tramos para pasar de los cinco autores de una nota suelta a un criterio propio, verificable y discutible. Cada parada tiene fuente abierta o referencia editorial. Cada tramo termina bajando a las 18 dependencias.</p>
+    <dl class="datos">
+      <div class="dato"><dt>Tramos</dt><dd>8</dd></div>
+      <div class="dato"><dt>Paradas</dt><dd>44</dd></div>
+      <div class="dato"><dt>Horas estimadas</dt><dd>68</dd></div>
+      <div class="dato"><dt>Ritmo sugerido</dt><dd>5 meses</dd></div>
+    </dl>
+  </div>
+</header>
+
+<nav class="indice wrap" aria-label="Índice de tramos">
+  <ol>
+    <li><a href="#t1"><em>km 0</em> El diagnóstico</a></li>
+    <li><a href="#t2"><em>km 5</em> Seguridad psicológica</a></li>
+    <li><a href="#t3"><em>km 18</em> Fracaso inteligente</a></li>
+    <li><a href="#t4"><em>km 26</em> Repensar</a></li>
+    <li><a href="#t5"><em>km 34</em> RR.HH. con datos</a></li>
+    <li><a href="#t6"><em>km 42</em> Feedback y equipo</a></li>
+    <li><a href="#t7"><em>km 50</em> Conversación difícil</a></li>
+    <li><a href="#t8"><em>km 55</em> Contra-lectura</a></li>
+    <li><a href="#taller"><em>—</em> Taller de investigación</a></li>
+  </ol>
+</nav>
+
+<main class="wrap">
+
+<!-- ══ TRAMO 1 ══════════════════════════════════ -->
+<section class="tramo" id="t1">
+  <div class="mojon"><i>KM</i><b>0</b></div>
+  <div class="cartel">
+    <p class="n">Tramo uno</p>
+    <h2>El diagnóstico</h2>
+    <p class="km">km 0 → 5 · cinco horas · datos duros antes que autores</p>
+  </div>
+  <p class="porque">Antes de leer a nadie conviene saber qué está roto y dónde. Los tres informes de este tramo coinciden en algo incómodo y muy aprovechable: <strong>el problema no está en la base operativa, está en la capa que conduce</strong>. Ese hallazgo es la bisagra de todo el dossier.</p>
+  <ul class="paradas">
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Informe</span><a href="https://www.gallup.com/workplace/349484/state-of-the-global-workplace.aspx" target="_blank" rel="noopener">State of the Global Workplace 2026</a></p>
+      <p class="fuente">Gallup · 141.444 empleados, 140+ países · descarga con registro</p>
+      <p class="nota">Engagement global en 20%, el nivel más bajo desde 2020. Lo que importa acá: el engagement gerencial cayó de 31% (2022) a 22% (2025) mientras el de los no-gerentes quedó plano. Leé sobre todo la sección de managers y la de bienestar.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Artículo</span><a href="https://www.unleash.ai/strategy-and-leadership/analysis/gallups-state-of-the-global-workplace-2026-report-three-key-decisions-for-hr-leaders" target="_blank" rel="noopener">Tres decisiones para líderes de RR.HH.</a></p>
+      <p class="fuente">UNLEASH · lectura de 8 minutos sobre el informe Gallup</p>
+      <p class="nota">Buen atajo si querés el argumento sin las 100 páginas. Señala que las organizaciones con mejores prácticas llegan a 79% de engagement gerencial: casi cuatro veces el promedio. Es decir, es alcanzable.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Informe</span><a href="https://www.deloitte.com/latam/es/services/consulting/research/tendencias-globales-de-capital-humano-2026.html" target="_blank" rel="noopener">Tendencias Globales de Capital Humano 2026</a></p>
+      <p class="fuente">Deloitte SLATAM · en castellano · con Oxford Economics, 9.000+ líderes en 89 países</p>
+      <p class="nota">"De las tensiones a los puntos de inflexión". Dato para guardar: 93% de la inversión en IA va a tecnología y 7% a personas; 84% de las organizaciones todavía no rediseñó roles ni trabajo para adaptarlos.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Informe</span><a href="https://www.deloitte.com/us/en/insights/topics/talent/human-capital-trends.html" target="_blank" rel="noopener">Global Human Capital Trends 2026 — versión completa</a></p>
+      <p class="fuente">Deloitte Insights · inglés · gráficos y metodología</p>
+      <p class="nota">La versión latinoamericana resume; esta trae las figuras y la muestra. Usala como fuente de citas cuando prepares algo para Estrategia o Capital Humano.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Portal</span><a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights" target="_blank" rel="noopener">People &amp; Organizational Performance</a></p>
+      <p class="fuente">McKinsey · publicación continua, acceso libre</p>
+      <p class="nota">No es una lectura, es una fuente. Marcala y pasá cada tres semanas. Ojo con el sesgo: es una consultora vendiendo transformaciones, no un journal.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Artículo</span><a href="https://www.mckinsey.com.br/capabilities/people-and-organizational-performance/our-insights/rethinking-organizational-health-for-the-new-world-of-work" target="_blank" rel="noopener">Repensar la salud organizacional</a></p>
+      <p class="fuente">McKinsey · sobre el Organizational Health Index, 20+ años de datos</p>
+      <p class="nota">El OHI es la alternativa seria a la encuesta de clima. Interesa el criterio de diseño: qué medís, con qué frecuencia y qué hacés con el resultado. Aplicable a escala chica sin licencia.</p>
+    </div></li>
+  </ul>
+  <div class="campo">
+    <h3>Bajada a territorio</h3>
+    <ol>
+      <li>Si el hallazgo de Gallup se replicara acá, ¿qué esperarías encontrar al comparar el ánimo de los 18 responsables contra el de los playeros y el personal de mostrador? ¿Tenés alguna evidencia de eso hoy, o es intuición?</li>
+      <li>Matías Torres y Dalma Ocampo cubren dos locaciones cada uno. ¿Cuánto de la caída de engagement gerencial que describe el informe es agotamiento y cuánto es falta de sentido? Son problemas distintos con soluciones distintas.</li>
+      <li>De las cosas que hoy medís por dependencia, ¿cuáles son indicadores de resultado y cuáles de salud? Si todas son de resultado, tenés un tablero ciego.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ TRAMO 2 ══════════════════════════════════ -->
+<section class="tramo" id="t2">
+  <div class="mojon"><i>KM</i><b>5</b></div>
+  <div class="cartel">
+    <p class="n">Tramo dos</p>
+    <h2>Seguridad psicológica</h2>
+    <p class="km">km 5 → 18 · trece horas · el tramo más largo y el más rentable</p>
+  </div>
+  <p class="porque">Acá vas a la fuente, no al resumen. La secuencia es deliberada: <strong>paper original → meta-análisis → réplica industrial → divulgación → libro</strong>. Si hacés ese recorrido en ese orden, después podés discutir el concepto con cualquiera y detectar cuándo alguien lo está usando como muletilla.</p>
+  <ul class="paradas">
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo p">Paper</span><a href="https://web.mit.edu/curhan/www/docs/Articles/15341_Readings/Group_Performance/Edmondson%20Psychological%20safety.pdf" target="_blank" rel="noopener">Psychological Safety and Learning Behavior in Work Teams</a></p>
+      <p class="fuente">Edmondson, 1999 · Administrative Science Quarterly 44(4):350–383 · PDF abierto en MIT</p>
+      <p class="nota">El origen de todo. 51 equipos de una empresa manufacturera. Prestá atención al diseño metodológico: mide antecedentes, procesos y resultados, y encuentra que el aprendizaje media entre seguridad y desempeño. Leé la escala de siete ítems del anexo: es replicable tal cual.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo p">Paper</span><a href="https://journals.sagepub.com/doi/10.2307/2666999" target="_blank" rel="noopener">El mismo paper en SAGE (con referencias enlazadas)</a></p>
+      <p class="fuente">DOI 10.2307/2666999 · para citar formalmente</p>
+      <p class="nota">Usá esta ficha cuando necesites la cita exacta. La bibliografía enlazada es la mejor puerta de entrada a la literatura previa (Argyris, Schön, Hackman).</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo p">Meta-análisis</span><a href="https://digitalcommons.odu.edu/management_fac_pubs/13/" target="_blank" rel="noopener">Psychological Safety: A Meta-Analytic Review and Extension</a></p>
+      <p class="fuente">Frazier et al., 2017 · Personnel Psychology 70(1) · versión abierta en ODU</p>
+      <p class="nota">136 muestras independientes, 22.000 individuos, casi 5.000 grupos. Es el documento que te dice qué tan grande es realmente el efecto y qué antecedentes lo producen. Sin esto, cualquiera te vende humo con el tema.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo p">Paper</span><a href="https://onlinelibrary.wiley.com/doi/10.1111/peps.12183" target="_blank" rel="noopener">Frazier et al. en Wiley (ficha editorial)</a></p>
+      <p class="fuente">Personnel Psychology · resumen y referencias</p>
+      <p class="nota">Si el PDF de ODU no abre, el abstract y la bibliografía están acá.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Herramienta</span><a href="https://rework.withgoogle.com/intl/en/guides/understand-team-effectiveness" target="_blank" rel="noopener">Understand team effectiveness — Project Aristotle</a></p>
+      <p class="fuente">Google re:Work · guía completa con instrumento de encuesta</p>
+      <p class="nota">Google estudió cientos de equipos de 3 a 50 personas y encontró cinco dinámicas; la seguridad psicológica fue la más determinante. Lo valioso operativamente es la <em>guía de conversación de equipo</em>: se puede correr en una estación un martes a la tarde.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Archivo</span><a href="https://psychsafety.com/project-aristotle-guide-to-team-effectiveness/" target="_blank" rel="noopener">Project Aristotle — versión rescatada</a></p>
+      <p class="fuente">Psych Safety · recuperado del Internet Archive</p>
+      <p class="nota">Google movió y despublicó partes del material original. Este espejo conserva el detalle de la sección sobre seguridad psicológica. Guardalo en PDF: puede desaparecer.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Video</span><a href="https://www.youtube.com/watch?v=LhoLuui9gX8" target="_blank" rel="noopener">Building a psychologically safe workplace — TEDxHGSE</a></p>
+      <p class="fuente">Amy Edmondson · 11 minutos · subtítulos automáticos en español</p>
+      <p class="nota">Los tres casos de apertura (la enfermera, el piloto, el ejecutivo) son material de capacitación directo. Sirve para abrir una reunión de responsables sin que nadie sienta que le están dando un curso.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Transcripción</span><a href="https://singjupost.com/building-a-psychologically-safe-workplace-amy-edmondson-transcript/" target="_blank" rel="noopener">Transcripción completa de la charla</a></p>
+      <p class="fuente">Texto en inglés · base para traducir</p>
+      <p class="nota">Si vas a usar los casos en una capacitación en castellano, es más rápido traducir desde acá que desde el video.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Libro</span><a href="https://arpaeditores.com/products/la-organizacion-sin-miedo" target="_blank" rel="noopener">La organización sin miedo</a></p>
+      <p class="fuente">Edmondson · Arpa Editores · ISBN 9788410313187 · ~21,90 €</p>
+      <p class="nota">La traducción de <em>The Fearless Organization</em>. Casos de Volkswagen, US Airways y la NASA. El aporte propio del libro sobre el paper es el marco por etapas para armar una hoja de ruta cultural.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Resumen</span><a href="https://www.getabstract.com/es/resumen/la-organizacion-sin-miedo/39246" target="_blank" rel="noopener">Resumen ejecutivo en español</a></p>
+      <p class="fuente">getAbstract · cinco páginas</p>
+      <p class="nota">Para decidir si comprás el libro, o para pasarle a un responsable que no va a leer 300 páginas.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Repositorio</span><a href="https://www.hbs.edu/faculty/Pages/item.aspx?num=2959" target="_blank" rel="noopener">Ficha del paper en Harvard Business School</a></p>
+      <p class="fuente">HBS Faculty &amp; Research</p>
+      <p class="nota">Desde acá llegás al resto de la producción de Edmondson, incluidos casos de estudio y trabajos posteriores sobre <em>teaming</em>.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Repositorio</span><a href="https://dash.harvard.edu/entities/publication/13a7b031-0fdd-45ec-a7e0-2b80e2bc679f" target="_blank" rel="noopener">DASH — repositorio abierto de Harvard</a></p>
+      <p class="fuente">Acceso abierto institucional</p>
+      <p class="nota">Vale conocer DASH como recurso general: muchos papers de HBS que están tras muro en las editoriales aparecen acá completos.</p>
+    </div></li>
+  </ul>
+  <div class="campo">
+    <h3>Bajada a territorio</h3>
+    <ol>
+      <li>Tomá la escala de siete ítems del paper de 1999 y traducila. ¿La correrías anónima por dependencia, o el anonimato en una estación de 12 personas es una ficción que todos van a notar?</li>
+      <li>¿Cuándo fue la última vez que un playero o un empleado de mostrador te contradijo por escrito? Si no encontrás el caso, ese silencio es el dato.</li>
+      <li>Los reclamos de Google Reviews son voz del cliente que llegó afuera porque adentro no encontró canal. ¿Cuántos de los últimos reclamos de 1 y 2 estrellas alguien de la estación ya había advertido internamente?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ TRAMO 3 ══════════════════════════════════ -->
+<section class="tramo" id="t3">
+  <div class="mojon"><i>KM</i><b>18</b></div>
+  <div class="cartel">
+    <p class="n">Tramo tres</p>
+    <h2>Fracaso inteligente</h2>
+    <p class="km">km 18 → 26 · ocho horas · sin edición en castellano todavía</p>
+  </div>
+  <p class="porque">La continuación natural del tramo anterior y, para una operación con riesgo físico real —surtidores, playa, ruta, hotelería—, el tramo más delicado. La tesis: <strong>hay fracasos básicos, complejos e inteligentes, y tratarlos igual es un error de gestión</strong>. En una estación de servicio, confundir un fracaso básico con uno inteligente puede lastimar a alguien.</p>
+  <ul class="paradas">
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Libro</span><a href="https://www.simonandschuster.com/books/Right-Kind-of-Wrong/Amy-C-Edmondson/9781982195069" target="_blank" rel="noopener">Right Kind of Wrong: The Science of Failing Well</a></p>
+      <p class="fuente">Edmondson, 2023 · Simon &amp; Schuster · inglés</p>
+      <p class="nota">Business Book of the Year del Financial Times 2023. Todavía sin traducción publicada que haya podido confirmar. Los tres arquetipos de fracaso son el aporte central; el resto son casos.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Entrevista</span><a href="https://hbr.org/2023/07/its-ok-to-fail-but-you-have-to-do-it-right?language=es" target="_blank" rel="noopener">Está bien fracasar, pero hay que hacerlo bien</a></p>
+      <p class="fuente">Harvard Business Review · en castellano · entrevista de Adi Ignatius</p>
+      <p class="nota">La síntesis de la tesis del libro en formato conversación. Frase para retener: experimentar es crucial, pero fracasar dos veces de la misma manera ya es otra cosa.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Artículo</span><a href="https://www.aeen.org/amy-edmondson-ganadora-del-premio-al-libro-ft-falla-rapido-falla-a-menudo-los-mantras-son-descuidados/" target="_blank" rel="noopener">"Falla rápido, falla a menudo": por qué el mantra es descuidado</a></p>
+      <p class="fuente">AEEN · en castellano</p>
+      <p class="nota">Buen contrapunto contra la cultura de startup importada acríticamente. Incluye el argumento de que ver el fracaso como binario alimenta la microgestión.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Video</span><a href="https://www.ted.com" target="_blank" rel="noopener">Charlas de Edmondson en TED</a></p>
+      <p class="fuente">ted.com · buscá "Edmondson" · varias charlas de 11 a 28 minutos</p>
+      <p class="nota">La de 28 minutos sobre crear seguridad psicológica profundiza en el tratamiento del error. Útil como material de un módulo de capacitación.</p>
+    </div></li>
+  </ul>
+  <div class="campo">
+    <h3>Bajada a territorio</h3>
+    <ol>
+      <li>Escribí tres fracasos concretos del último año en la División y clasificalos con los arquetipos. ¿Cuántos fueron básicos —procedimiento conocido, mal ejecutado— y cuántos realmente inteligentes?</li>
+      <li>En seguridad operativa el error no se celebra: se previene. ¿Dónde termina el territorio donde querés que la gente experimente y dónde empieza el territorio donde querés cumplimiento estricto? Escribí la frontera, no la dejes implícita.</li>
+      <li>¿Qué le pasa hoy, en la práctica, a un responsable que reporta un problema propio antes de que lo descubra alguien más? Si la respuesta honesta es "le va peor que si lo escondía", ahí tenés el trabajo.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ TRAMO 4 ══════════════════════════════════ -->
+<section class="tramo" id="t4">
+  <div class="mojon"><i>KM</i><b>26</b></div>
+  <div class="cartel">
+    <p class="n">Tramo cuatro</p>
+    <h2>Repensar</h2>
+    <p class="km">km 26 → 34 · ocho horas · el más incómodo, por personal</p>
+  </div>
+  <p class="porque">Grant no es un autor de organizaciones: es un psicólogo del criterio individual. Este tramo no te va a dar herramientas para las 18 dependencias, <strong>te va a discutir a vos</strong>. Por eso conviene acá y no al principio: con los tres tramos anteriores encima, tenés material propio para poner a prueba.</p>
+  <ul class="paradas">
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Libro</span><a href="https://www.amazon.com/Pi%C3%A9nsalo-otra-Spanish-Adam-Grant/dp/6075691723" target="_blank" rel="noopener">Piénsalo otra vez</a></p>
+      <p class="fuente">Grant · Paidós · ISBN 9786075691725 · 363 páginas</p>
+      <p class="nota">Sobre repensar y desaprender. El capítulo sobre el ciclo de repensar —predicador, fiscal, político, científico— es el que más se aplica a reuniones de gerencia.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Boletín</span><a href="https://substack.com/@adamgrant" target="_blank" rel="noopener">Granted — el newsletter de Grant</a></p>
+      <p class="fuente">Substack · gratuito · mensual</p>
+      <p class="nota">Fuente periódica de bajo costo de mantenimiento. Formato corto, ideal si lo que buscás es continuidad y no una lectura de 300 páginas cada seis meses.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Podcast</span><a href="https://adamgrant.net/podcasts/rethinking/" target="_blank" rel="noopener">Re:Thinking — episodios y transcripciones</a></p>
+      <p class="fuente">TED · episodios semanales · transcripciones disponibles</p>
+      <p class="nota">Las transcripciones son la clave: se leen a la velocidad que quieras y se traducen. Episodios de interés directo: Erin Meyer sobre comunicación intercultural, Jim Collins sobre autoconocimiento.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Referencia</span><a href="https://adamgrant.net/about/biography/" target="_blank" rel="noopener">Quién es Grant y de dónde viene su autoridad</a></p>
+      <p class="fuente">adamgrant.net</p>
+      <p class="nota">Vale leerlo con ojo crítico: es psicólogo organizacional de Wharton y también un divulgador con marca personal enorme. Las dos cosas son ciertas y las dos importan al evaluar sus afirmaciones.</p>
+    </div></li>
+  </ul>
+  <div class="campo">
+    <h3>Bajada a territorio</h3>
+    <ol>
+      <li>Nombrá una decisión de gestión que sostenés hace más de dos años sin haberla revisado. ¿Qué evidencia te haría cambiarla? Si no podés responder eso, no es una decisión: es una identidad.</li>
+      <li>En tus reuniones, ¿qué proporción del tiempo estás en modo fiscal —defendiendo una posición— y qué proporción en modo científico? Cronometralo una vez, sin avisar.</li>
+      <li>¿Quién de tu entorno de trabajo te contradice de manera fiable? Si la lista es corta, el problema es de diseño, no de suerte.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ TRAMO 5 ══════════════════════════════════ -->
+<section class="tramo" id="t5">
+  <div class="mojon"><i>KM</i><b>34</b></div>
+  <div class="cartel">
+    <p class="n">Tramo cinco</p>
+    <h2>RR.HH. con datos</h2>
+    <p class="km">km 34 → 42 · ocho horas · leer con filtro de contexto</p>
+  </div>
+  <p class="porque">Bock cuenta cómo Google gestionó personas con evidencia. Es de 2015 y envejeció en lo tecnológico, no en lo estructural. La advertencia es explícita: <strong>lo que funciona con ingenieros de software que eligen dónde trabajar no se traslada sin traducción a 360 personas en estaciones de servicio y hotelería en Patagonia</strong>. Leelo por el método, no por las recetas.</p>
+  <ul class="paradas">
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Libro</span><a href="https://www.penguinlibros.com/us/tematicas/19221-ebook-la-nueva-formula-del-trabajo-9788416029556" target="_blank" rel="noopener">La nueva fórmula del trabajo</a></p>
+      <p class="fuente">Bock · Conecta · ISBN 9788416029488 · también en ebook</p>
+      <p class="nota">Tesis fuertes: quitarle poder a los directivos y dárselo a los empleados; aprender tanto de los mejores como de los peores; pagar de forma desigual porque es más justo. Esta última es la que más discusión te va a generar en una organización con convenio.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Herramienta</span><a href="https://rework.withgoogle.com/intl/en/guides/understand-team-effectiveness" target="_blank" rel="noopener">re:Work — biblioteca de guías operativas</a></p>
+      <p class="fuente">Google · guías con plantillas descargables</p>
+      <p class="nota">Es el complemento práctico del libro de Bock. Guías sobre gestión de managers, entrevistas estructuradas, objetivos y sesgos. Google marcó el contenido como archivo histórico, así que descargá lo que te sirva.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Ficha</span><a href="https://www.lecturalia.com/libro/94881/la-nueva-formula-del-trabajo" target="_blank" rel="noopener">Reseñas y valoraciones del libro</a></p>
+      <p class="fuente">Lecturalia · en castellano</p>
+      <p class="nota">Para calibrar expectativas antes de invertir las horas.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo c">Crítica</span><a href="https://www.icesi.edu.co/revistas/index.php/estudios_gerenciales" target="_blank" rel="noopener">Estudios Gerenciales — Universidad Icesi</a></p>
+      <p class="fuente">Revista iberoamericana arbitrada · acceso abierto · trimestral</p>
+      <p class="nota">Contrapeso regional deliberado. Investigación sobre gestión organizacional en contextos latinoamericanos, incluyendo trabajos argentinos. Buscá acá antes de asumir que un hallazgo de Silicon Valley aplica en Neuquén.</p>
+    </div></li>
+  </ul>
+  <div class="campo">
+    <h3>Bajada a territorio</h3>
+    <ol>
+      <li>Bock propone contratar solo gente más capaz que uno, cueste lo que cueste. En tu realidad de dotación y convenio, ¿qué versión de eso es efectivamente ejecutable y cuál es fantasía importada?</li>
+      <li>Elegí una sola práctica del libro y pilotala en una dependencia antes de proponerla como política. ¿Cuál elegís y por qué esa?</li>
+      <li>¿Qué decisión sobre personas tomaste en el último trimestre apoyándote en datos y no en impresión? Si la respuesta es ninguna, ese es el punto de partida.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ TRAMO 6 ══════════════════════════════════ -->
+<section class="tramo" id="t6">
+  <div class="mojon"><i>KM</i><b>42</b></div>
+  <div class="cartel">
+    <p class="n">Tramo seis</p>
+    <h2>Feedback y equipo</h2>
+    <p class="km">km 42 → 50 · ocho horas · leer con la refutación al lado</p>
+  </div>
+  <p class="porque">Buckingham y Goodall sostienen dos cosas de alto impacto: <strong>a la gente le importa el equipo, no la empresa</strong>, y <strong>lo que el empleado necesita no es feedback sino atención</strong>. La primera es sólida. La segunda tiene una refutación seria que está incluida en este tramo a propósito: querés poder sostener las dos posiciones antes de rediseñar cómo evalúan tus responsables.</p>
+  <ul class="paradas">
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Artículo</span><a href="https://hbr.org/2019/03/the-feedback-fallacy" target="_blank" rel="noopener">The Feedback Fallacy</a></p>
+      <p class="fuente">Buckingham y Goodall · Harvard Business Review, marzo-abril 2019</p>
+      <p class="nota">El artículo madre. Argumento central: más de la mitad de tu calificación sobre alguien refleja características tuyas, no de esa persona. Probá el truco del <code>?language=es</code> al final de la URL para ver si hay traducción.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo c">Refutación</span><a href="https://www.forbes.com/sites/hannahart/2019/03/11/feedback-is-not-a-waste-of-time-what-the-feedback-fallacy-got-wrong/" target="_blank" rel="noopener">Qué se equivocó The Feedback Fallacy</a></p>
+      <p class="fuente">Forbes · réplica publicada a los pocos días</p>
+      <p class="nota">Sostiene que los autores tienen razón sobre los excesos de la franqueza brutal pero sobre-extienden la conclusión, y que hay buena evidencia de que una cultura de feedback alto mejora el desempeño. Leé este junto al anterior, no después.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Podcast</span><a href="https://hbr.org/podcast/2019/04/what-managers-get-wrong-about-feedback" target="_blank" rel="noopener">What Managers Get Wrong About Feedback</a></p>
+      <p class="fuente">HBR IdeaCast · con transcripción completa</p>
+      <p class="nota">Los autores defendiendo el argumento en vivo. La transcripción está publicada, así que se puede leer en vez de escuchar.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Resumen</span><a href="https://resumido.com/libro/950/nueve-mentiras-sobre-el-trabajo/" target="_blank" rel="noopener">Nueve mentiras sobre el trabajo — resumen en castellano</a></p>
+      <p class="fuente">Resumido.com · las nueve tesis en formato corto</p>
+      <p class="nota">Hay edición en castellano del libro completo, pero el resumen alcanza para decidir cuáles de las nueve te interesan a fondo.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Artículo</span><a href="https://glocalthinking.com/nueve-mentiras-sobre-el-trabajo/" target="_blank" rel="noopener">Lectura crítica del libro desde RR.HH.</a></p>
+      <p class="fuente">Glocalthinking · en castellano</p>
+      <p class="nota">Mirada desde la práctica de recursos humanos en España. Útil para ver cómo aterriza en un contexto laboral más regulado que el estadounidense.</p>
+    </div></li>
+  </ul>
+  <div class="campo">
+    <h3>Bajada a territorio</h3>
+    <ol>
+      <li>Si más de la mitad de una evaluación refleja al evaluador, ¿qué significa eso para las calificaciones que hoy tus 18 responsables ponen sobre su gente? ¿Y para las que vos ponés sobre ellos?</li>
+      <li>"Atención, no feedback": traducilo a una frecuencia concreta. ¿Un contacto breve semanal por responsable es sostenible con tu agenda real, o estás diseñando algo que vas a abandonar en seis semanas?</li>
+      <li>Si a la gente le importa el equipo y no la empresa, ¿qué sentido tiene una comunicación institucional uniforme para las 18 dependencias? ¿Qué parte debería ser de estación y qué parte de División?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ TRAMO 7 ══════════════════════════════════ -->
+<section class="tramo" id="t7">
+  <div class="mojon"><i>KM</i><b>50</b></div>
+  <div class="cartel">
+    <p class="n">Tramo siete</p>
+    <h2>La conversación difícil</h2>
+    <p class="km">km 50 → 55 · cinco horas · el más blando en evidencia, el más útil el lunes</p>
+  </div>
+  <p class="porque">Brown es la autora con base empírica más discutible de los cinco: investigación cualitativa, codificación propia, poca replicación independiente. <strong>Eso no la vuelve inútil, la vuelve otra cosa</strong>: un repertorio de conductas para conversaciones donde el problema no es qué decir sino soportar la incomodidad de decirlo. Leela sabiendo eso.</p>
+  <ul class="paradas">
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Libro</span><span class="sinlink">Atrévete a liderar (Dare to Lead)</span></p>
+      <p class="fuente">Brené Brown · edición en castellano disponible en librerías argentinas</p>
+      <p class="nota">Los capítulos sobre <em>rumbling with vulnerability</em> y sobre dar retroalimentación difícil son los aprovechables. El resto es repetición de sus libros previos.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Portal</span><a href="https://brenebrown.com" target="_blank" rel="noopener">brenebrown.com — materiales descargables</a></p>
+      <p class="fuente">Sitio oficial · guías de trabajo en PDF, gratuitas</p>
+      <p class="nota">Las hojas de trabajo del programa Dare to Lead están publicadas. Son ejercicios de taller listos para adaptar; ahorran mucho tiempo de diseño.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Podcast</span><a href="https://adamgrant.net/podcasts/rethinking/" target="_blank" rel="noopener">Brown y Grant sobre en qué nunca van a estar de acuerdo</a></p>
+      <p class="fuente">Re:Thinking · episodio de The Curiosity Shop</p>
+      <p class="nota">Los dos autores discutiendo entre ellos. Es la mejor forma de ver dónde chocan la mirada cuantitativa y la cualitativa sin que nadie te lo explique en abstracto.</p>
+    </div></li>
+  </ul>
+  <div class="campo">
+    <h3>Bajada a territorio</h3>
+    <ol>
+      <li>Identificá la conversación que venís postergando hace más de un mes. ¿Qué estás protegiendo al postergarla: a la otra persona, al equipo, o a vos?</li>
+      <li>Cuando un responsable te trae un problema sin solución, ¿qué hacés en los primeros diez segundos? Esa reacción es la política real de la División, no la que está escrita.</li>
+      <li>¿Cuánta de la incomodidad que evitás es propia y cuánta es institucional? Las dos existen, pero solo una podés cambiar vos solo.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ TRAMO 8 ══════════════════════════════════ -->
+<section class="tramo" id="t8">
+  <div class="mojon"><i>KM</i><b>55</b></div>
+  <div class="cartel">
+    <p class="n">Tramo ocho</p>
+    <h2>Contra-lectura</h2>
+    <p class="km">km 55 → 68 · trece horas · el tramo que separa criterio de repetición</p>
+  </div>
+  <p class="porque">Sin este tramo el dossier es propaganda. Acá vas a leer los problemas de medición del concepto que estudiaste durante trece horas, la crítica a la infraestructura que produce estas ideas, y el hecho de que una de tus cinco fuentes periódicas está cerrando. <strong>Si al final de este tramo seguís convencido, ahí sí tenés una posición.</strong></p>
+  <ul class="paradas">
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo c">Meta-análisis</span><a href="https://www.medrxiv.org/content/10.1101/2024.02.09.24302562v1.full" target="_blank" rel="noopener">Revisión sistemática de las medidas de seguridad psicológica</a></p>
+      <p class="fuente">medRxiv, 2024 · 217 estudios revisados bajo guías Cochrane</p>
+      <p class="nota">El hallazgo incómodo: hay poco consenso sobre cómo medir el constructo y qué lo compone, con heterogeneidad enorme entre muestras. Traducción práctica: cuando alguien te muestre un número de "seguridad psicológica", preguntá con qué escala.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo c">Anuncio</span><a href="https://mitsloan.mit.edu/press/update-mit-sloan-management-review" target="_blank" rel="noopener">MIT Sloan Management Review cierra</a></p>
+      <p class="fuente">MIT Sloan · comunicado oficial · último número: septiembre 2026</p>
+      <p class="nota">Una de las cinco fuentes de tu nota original deja de existir. El archivo queda; la producción nueva no. Reemplazala ahora en tu dieta informativa, no cuando te enteres por el silencio.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo c">Análisis</span><a href="https://poetsandquants.com/2026/06/03/board-member-warns-shutdown-of-mit-sloan-management-review-marks-a-turning-point-for-business-thinking/" target="_blank" rel="noopener">Qué significa el cierre para el pensamiento en gestión</a></p>
+      <p class="fuente">Poets&amp;Quants · con Rita McGrath, Columbia Business School</p>
+      <p class="nota">La tesis de McGrath: se retira un árbitro institucional, y que una revista con esa credibilidad no sea viable sugiere que el mercado de las ideas de gestión está cambiando de fondo. Directamente relevante para cualquier producto de destilación académica.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo c">Nota</span><a href="https://www.insidehighered.com/news/quick-takes/2026/05/12/mit-close-long-running-business-journal" target="_blank" rel="noopener">La versión periodística del cierre</a></p>
+      <p class="fuente">Inside Higher Ed · contexto de la decisión</p>
+      <p class="nota">Complemento corto. El cierre se enmarcó como reordenamiento de comunicaciones tras 67 años de publicación.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo">Archivo</span><a href="https://sloanreview.mit.edu/" target="_blank" rel="noopener">sloanreview.mit.edu — bajar lo que te sirva ahora</a></p>
+      <p class="fuente">MIT SMR · archivo vigente</p>
+      <p class="nota">MIT dice que va a conservar el catálogo, pero las promesas de permanencia de contenido web tienen mal historial. Si hay artículos que te importan, guardalos en PDF este mes.</p>
+    </div></li>
+    <li class="parada"><input class="chk" type="checkbox" aria-label="Leído"><div class="cuerpo">
+      <p class="titulo"><span class="tipo c">Fuente</span><a href="https://explore.psychsafety.com/n/frazier-et-al-2017/" target="_blank" rel="noopener">Red de literatura sobre seguridad psicológica</a></p>
+      <p class="fuente">Psych Safety · mapa de papers relacionados</p>
+      <p class="nota">Permite ver el campo entero: qué se estudió, qué quedó sin replicar, qué autores discuten con quién. Es la vista de conjunto que ningún libro te da.</p>
+    </div></li>
+  </ul>
+  <div class="campo">
+    <h3>Bajada a territorio</h3>
+    <ol>
+      <li>Después de leer la crítica de medición: ¿seguirías corriendo una encuesta de seguridad psicológica en las 18 dependencias? Si sí, ¿qué le vas a decir a la gente que va a hacer con el resultado?</li>
+      <li>Tres de las cinco fuentes de tu lista original son consultoras o medios con modelo comercial (McKinsey, Deloitte, Gallup). ¿Qué tienen para ganar con los hallazgos que publican? No es descalificación: es lectura.</li>
+      <li>¿Qué cosa de todo este dossier creés que va a envejecer peor en cinco años? Anotalo con fecha. Volvé en 2031 a ver si acertaste.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ TALLER ═══════════════════════════════════ -->
+<section class="taller" id="taller">
+  <p class="sub">Instrumental</p>
+  <h2>Taller de investigación</h2>
+  <p class="porque">Herramientas para seguir solo cuando el dossier se agote. Todo lo de acá es gratuito o de acceso abierto.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h4>Buscar papers</h4>
+      <p>Cuatro puertas de entrada, en orden de utilidad para tu caso:</p>
+      <ul>
+        <li><a href="https://scholar.google.com" target="_blank" rel="noopener">Google Scholar</a> — armá alertas con consultas booleanas y recibí novedades por mail.</li>
+        <li><a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a> — catálogo abierto con API. Sirve para automatizar con Apps Script.</li>
+        <li><a href="https://www.semanticscholar.org" target="_blank" rel="noopener">Semantic Scholar</a> — resúmenes generados y mapa de citas.</li>
+        <li><a href="https://www.connectedpapers.com" target="_blank" rel="noopener">Connected Papers</a> — a partir de un paper te dibuja el vecindario del campo.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>Leer en castellano</h4>
+      <p>Tres atajos concretos:</p>
+      <ul>
+        <li>Agregá <code>?language=es</code> al final de cualquier URL de hbr.org. No todos los artículos están traducidos, pero muchos sí.</li>
+        <li><a href="https://www.harvard-deusto.com/mit-sloan-management-review" target="_blank" rel="noopener">Harvard Deusto</a> licencia material de HBR y de MIT SMR en castellano.</li>
+        <li><a href="https://mitsloanreview.mx/" target="_blank" rel="noopener">MIT SMR México</a> publica en español; conviene ver qué pasa con esta edición tras el cierre de la matriz.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>Fuentes regionales</h4>
+      <p>Para no razonar solo con evidencia anglosajona:</p>
+      <ul>
+        <li><a href="https://www.icesi.edu.co/revistas/index.php/estudios_gerenciales" target="_blank" rel="noopener">Estudios Gerenciales</a> — Icesi, arbitrada, acceso abierto.</li>
+        <li><a href="https://www.redalyc.org" target="_blank" rel="noopener">Redalyc</a> — red de revistas de América Latina, España y Portugal. Todo abierto.</li>
+        <li>Buscá en particular estudios sobre trabajo de servicios y organizaciones sindicalizadas: es tu contexto real y casi no aparece en la literatura de Boston.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>Fuentes periódicas vivas</h4>
+      <p>Después del cierre de MIT SMR, la dieta queda así:</p>
+      <ul>
+        <li><a href="https://hbr.org" target="_blank" rel="noopener">HBR</a> — pago, pero varios artículos abiertos por mes.</li>
+        <li><a href="https://www.gallup.com/workplace/" target="_blank" rel="noopener">Gallup Workplace</a> — datos primarios, gratuito.</li>
+        <li><a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights" target="_blank" rel="noopener">McKinsey POP</a> y <a href="https://www.deloitte.com/es/es/services/consulting/research/tendencias-capital-humano.html" target="_blank" rel="noopener">Deloitte Capital Humano</a> — gratuitos, con sesgo comercial declarado.</li>
+        <li><a href="https://substack.com/@adamgrant" target="_blank" rel="noopener">Granted</a> — el reemplazo de bajo esfuerzo para el hueco que deja MIT SMR.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="receta">
+    <h4>Cómo leer un paper sin perder el día</h4>
+    <p>Un artículo académico no se lee de principio a fin. Se lee en tres pasadas: <strong>abstract y conclusiones</strong> para decidir si sigue; <strong>método y muestra</strong> para saber cuánto vale; <strong>resultados</strong> solo si las dos anteriores aprobaron. La discusión teórica se saltea salvo que vayas a citar.</p>
+      <p>Las tres preguntas que decidan todo: <em>¿a quién midieron?</em> (51 equipos de una fábrica no son 360 personas en estaciones de servicio), <em>¿es correlación o causa?</em>, <em>¿alguien lo replicó?</em> Si un hallazgo no se replicó, es una hipótesis interesante, no un fundamento para rediseñar una división.</p>
+    <p>Para alertas automáticas en Scholar, una consulta de arranque: <code>("psychological safety" OR "voice behavior") AND (frontline OR "service employees") -healthcare</code>. Ajustala hasta que el ruido sea tolerable.</p>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p>Hoja de ruta de estudio · Management contemporáneo · Preparada en agosto de 2026 sobre la base de las notas de GDM.<br>
+  Los enlaces externos apuntan a fuentes en su ubicación original al momento de la compilación; los recursos académicos abiertos pueden cambiar de dirección.<br>
+  Las ediciones en castellano se indican cuando existen; cuando no, se señala explícitamente.</p>
+</footer>
+
+</main>
+
+<button id="abrirTrad" type="button">Traductor</button>
+
+<div class="velo" id="velo" role="dialog" aria-modal="true" aria-labelledby="tradTit">
+  <div class="panel">
+    <div class="cab">
+      <h3 id="tradTit">Traductor</h3>
+      <button id="cerrarTrad" type="button">CERRAR</button>
+    </div>
+    <p class="ayuda">Pegá un abstract, un párrafo o una página entera en inglés. Traduce al castellano rioplatense conservando la terminología académica.</p>
+    <textarea id="entrada" placeholder="Pegá el texto en inglés acá…" spellcheck="false"></textarea>
+    <div class="acciones">
+      <button class="btn" id="traducir" type="button">Traducir al español</button>
+      <button class="btn sec" id="google" type="button">Abrir en Google Translate</button>
+      <button class="btn sec" id="copiar" type="button">Copiar resultado</button>
+      <span class="estado" id="estado"></span>
+    </div>
+    <div id="salida"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var chks = Array.prototype.slice.call(document.querySelectorAll('.chk'));
+  var fill = document.getElementById('fill');
+  var pct  = document.getElementById('pct');
+  function actualizar(){
+    var hechas = chks.filter(function(c){return c.checked;}).length;
+    var p = chks.length ? Math.round(hechas / chks.length * 100) : 0;
+    fill.style.width = p + '%';
+    pct.textContent = p + '%';
+  }
+  chks.forEach(function(c){ c.addEventListener('change', actualizar); });
+  actualizar();
+
+  /* ── insignias ES: proxy de traducción por fuente ── */
+  var castellano = /(^|\.)(icesi\.edu\.co|redalyc\.org|arpaeditores\.com|penguinlibros\.com|lecturalia\.com|resumido\.com|glocalthinking\.com|getabstract\.com|aeen\.org|mitsloanreview\.mx|harvard-deusto\.com|amazon\.com)$/;
+  function proxy(u){
+    try{
+      var url = new URL(u);
+      if(url.protocol !== 'https:') return null;
+      if(castellano.test(url.hostname)) return null;
+      if(/youtube\.com|youtu\.be|scholar\.google|translate\.goog/.test(url.hostname)) return null;
+      if(/\.pdf$/i.test(url.pathname)) return null;
+      var host = url.hostname.replace(/-/g,'--').replace(/\./g,'-');
+      return 'https://' + host + '.translate.goog' + url.pathname + url.search +
+             (url.search ? '&' : '?') + '_x_tr_sl=auto&_x_tr_tl=es&_x_tr_hl=es';
+    }catch(e){ return null; }
+  }
+  document.querySelectorAll('.titulo a[href^="https://"], .card a[href^="https://"]').forEach(function(a){
+    var p = proxy(a.href);
+    if(!p) return;
+    var b = document.createElement('a');
+    b.className = 'es'; b.href = p; b.target = '_blank'; b.rel = 'noopener';
+    b.textContent = 'ES'; b.title = 'Abrir esta fuente traducida al español';
+    a.parentNode.insertBefore(b, a.nextSibling);
+  });
+
+  /* ── traductor ── */
+  var velo = document.getElementById('velo'),
+      entrada = document.getElementById('entrada'),
+      salida = document.getElementById('salida'),
+      estado = document.getElementById('estado'),
+      btnTrad = document.getElementById('traducir'),
+      ultimoFoco = null;
+
+  function abrir(){ ultimoFoco = document.activeElement; velo.classList.add('on'); entrada.focus(); }
+  function cerrar(){ velo.classList.remove('on'); if(ultimoFoco) ultimoFoco.focus(); }
+  document.getElementById('abrirTrad').addEventListener('click', abrir);
+  document.getElementById('cerrarTrad').addEventListener('click', cerrar);
+  velo.addEventListener('click', function(e){ if(e.target === velo) cerrar(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && velo.classList.contains('on')) cerrar(); });
+
+  function decir(t, err){ estado.textContent = t; estado.className = 'estado' + (err ? ' err' : ''); }
+
+  function trozos(txt, max){
+    var partes = txt.split(/\n\s*\n/), out = [], buf = '';
+    partes.forEach(function(p){
+      if((buf + '\n\n' + p).length > max && buf){ out.push(buf); buf = p; }
+      else { buf = buf ? buf + '\n\n' + p : p; }
+    });
+    if(buf) out.push(buf);
+    return out.length ? out : [txt];
+  }
+
+  function pedir(fragmento){
+    return fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1000,
+        messages:[{role:'user', content:
+          'Traduci al castellano rioplatense el siguiente texto academico o periodistico sobre gestion organizacional. ' +
+          'Conserva la terminologia tecnica establecida (por ejemplo: psychological safety = seguridad psicologica, ' +
+          'engagement = engagement, teaming = teaming). Usa voseo solo si el original es coloquial. ' +
+          'No agregues comentarios, notas ni encabezados: devolve unicamente la traduccion.\n\n---\n' + fragmento}]
+      })
+    }).then(function(r){
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function(d){
+      return (d.content || []).map(function(i){ return i.type === 'text' ? i.text : ''; }).join('').trim();
+    });
+  }
+
+  btnTrad.addEventListener('click', function(){
+    var txt = entrada.value.trim();
+    if(!txt){ decir('Pegá algún texto primero.', true); return; }
+    var partes = trozos(txt, 1800), hechas = [];
+    btnTrad.disabled = true; salida.classList.remove('on'); salida.textContent = '';
+    decir('Traduciendo… 0 de ' + partes.length);
+
+    partes.reduce(function(cadena, parte, i){
+      return cadena.then(function(){
+        return pedir(parte).then(function(t){
+          hechas.push(t);
+          salida.textContent = hechas.join('\n\n');
+          salida.classList.add('on');
+          decir('Traduciendo… ' + (i + 1) + ' de ' + partes.length);
+        });
+      });
+    }, Promise.resolve())
+    .then(function(){
+      btnTrad.disabled = false;
+      decir('Listo · ' + partes.length + (partes.length === 1 ? ' bloque' : ' bloques'));
+    })
+    .catch(function(){
+      btnTrad.disabled = false;
+      salida.classList.remove('on');
+      decir('La traducción con IA no está disponible acá. Usá Google Translate →', true);
+    });
+  });
+
+  document.getElementById('google').addEventListener('click', function(){
+    var txt = entrada.value.trim();
+    if(!txt){ decir('Pegá algún texto primero.', true); return; }
+    if(txt.length > 4500){ decir('Google Translate corta cerca de 5.000 caracteres: se abre el primer tramo.', true); }
+    window.open('https://translate.google.com/?sl=en&tl=es&op=translate&text=' +
+      encodeURIComponent(txt.slice(0, 4500)), '_blank', 'noopener');
+  });
+
+  document.getElementById('copiar').addEventListener('click', function(){
+    var t = salida.textContent.trim();
+    if(!t){ decir('Todavía no hay traducción para copiar.', true); return; }
+    if(navigator.clipboard){ navigator.clipboard.writeText(t).then(function(){ decir('Copiado.'); }); }
+    else { decir('Seleccioná el texto y copialo a mano.', true); }
+  });
+})();
+</script>
+
+</body>
+</html>
